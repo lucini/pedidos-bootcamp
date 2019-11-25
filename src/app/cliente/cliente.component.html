@@ -1,0 +1,36 @@
+<p-card header="Lista de Clientes">
+  <div class="text-right m-2">
+    <button pButton
+            [routerLink]="['form']"
+            type="button"
+            label="Novo"
+            class="ui-button-raised"></button>
+  </div>
+  <p-table [columns]="cols"
+           [lazy]="true"
+           (onLazyLoad)="carregarLista()"
+           [loading]="loading"
+           [value]="lista">
+    <ng-template let-columns pTemplate="header">
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template let-columns="columns" let-rowData pTemplate="body">
+      <tr>
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>Sem Registros.</tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      {{lista?.length}} clientes.
+    </ng-template>
+  </p-table>
+</p-card>
+
