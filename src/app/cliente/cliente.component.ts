@@ -28,7 +28,7 @@ export class ClienteComponent implements OnInit {
 
   carregarLista(): void {
     this.loading = true;
-    this.clienteService.findAll().pipe(delay(2000)).subscribe(res => {
+    this.clienteService.findAll().pipe(delay(1000)).subscribe(res => {
       this.lista = res;
       setTimeout(() => this.loading = false);
     });

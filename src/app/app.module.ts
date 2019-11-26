@@ -12,6 +12,9 @@ import {ButtonModule} from 'primeng/button';
 import { ClienteFormComponent } from './cliente/cliente-form/cliente-form.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {FormsModule} from '@angular/forms';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,8 +32,10 @@ import {FormsModule} from '@angular/forms';
     ButtonModule,
     InputTextModule,
     FormsModule,
+    ToastModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

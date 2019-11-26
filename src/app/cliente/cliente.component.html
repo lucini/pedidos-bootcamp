@@ -1,14 +1,14 @@
 <p-card header="Lista de Clientes">
   <div class="text-right m-2">
-    <button pButton
-            [routerLink]="['form']"
-            type="button"
+    <button [routerLink]="['form']"
+            class="ui-button-raised"
             label="Novo"
-            class="ui-button-raised"></button>
+            pButton
+            type="button"></button>
   </div>
-  <p-table [columns]="cols"
+  <p-table (onLazyLoad)="carregarLista()"
+           [columns]="cols"
            [lazy]="true"
-           (onLazyLoad)="carregarLista()"
            [loading]="loading"
            [value]="lista">
     <ng-template let-columns pTemplate="header">
@@ -16,12 +16,19 @@
         <th *ngFor="let col of columns">
           {{col.header}}
         </th>
+        <th class="text-center">Ações</th>
       </tr>
     </ng-template>
     <ng-template let-columns="columns" let-rowData pTemplate="body">
       <tr>
         <td *ngFor="let col of columns">
           {{rowData[col.field]}}
+        </td>
+        <td class="text-center">
+          <i [queryParams]="{id: rowData['id']}"
+             [routerLink]="['form']"
+             class="pi pi-pencil"
+             title="Editar"></i>
         </td>
       </tr>
     </ng-template>
