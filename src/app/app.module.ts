@@ -13,8 +13,9 @@ import { ClienteFormComponent } from './cliente/cliente-form/cliente-form.compon
 import {InputTextModule} from 'primeng/inputtext';
 import {FormsModule} from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FormsModule,
     ToastModule,
     BrowserAnimationsModule,
+    ConfirmDialogModule,
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
