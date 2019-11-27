@@ -1,25 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {Cliente} from '../model/cliente';
-import {ClienteService} from '../service/cliente.service';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
 import {ListComponent} from '../component/list.component';
+import {Produto} from '../model/produto';
+import {ProdutoService} from '../service/produto.service';
+import {ConfirmationService, MessageService} from 'primeng/api';
 
 @Component({
-  selector: 'app-cliente',
-  templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.scss']
+  selector: 'app-produto',
+  templateUrl: './produto.component.html',
+  styleUrls: ['./produto.component.scss']
 })
-export class ClienteComponent extends ListComponent<Cliente> implements OnInit {
+export class ProdutoComponent extends ListComponent<Produto> implements OnInit {
 
-  constructor(private clienteService: ClienteService,
+  constructor(private produtoService: ProdutoService,
               private messageService: MessageService,
               private confirmationService: ConfirmationService) {
     super();
     this.cols = [
       {field: 'id', header: 'Código'},
-      {field: 'nome', header: 'Nome'},
-      {field: 'cpf', header: 'CPF'},
-      {field: 'telefone', header: 'Telefone'},
+      {field: 'descricao', header: 'Descrição'},
+      {field: 'valorUnitario', header: 'Valor Unitário'},
     ];
   }
 
@@ -28,7 +27,7 @@ export class ClienteComponent extends ListComponent<Cliente> implements OnInit {
 
   carregarLista(): void {
     this.loading = true;
-    this.clienteService.findAll().subscribe(res => {
+    this.produtoService.findAll().subscribe(res => {
       this.lista = res;
       setTimeout(() => this.loading = false);
     });
@@ -36,7 +35,7 @@ export class ClienteComponent extends ListComponent<Cliente> implements OnInit {
 
   excluir(id: number): void {
     this.confirmationService.confirm({
-      message: 'Você tem certeza que deseja excluir esse cliente?',
+      message: 'Você tem certeza que deseja excluir esse produto?',
       accept: () => this.deletar(id),
       acceptLabel: 'SIM',
       rejectLabel: 'NÃO',
@@ -45,7 +44,7 @@ export class ClienteComponent extends ListComponent<Cliente> implements OnInit {
 
   private deletar(id: number): void {
     this.loading = true;
-    this.clienteService.delete(id).subscribe(() => {
+    this.produtoService.delete(id).subscribe(() => {
       this.carregarLista();
 
       this.messageService.add({

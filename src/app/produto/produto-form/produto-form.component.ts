@@ -1,19 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {Cliente} from '../../model/cliente';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ClienteService} from '../../service/cliente.service';
-import {MessageService, SelectItem} from 'primeng/api';
+import {MessageService} from 'primeng/api';
+import {ProdutoService} from '../../service/produto.service';
+import {Produto} from '../../model/produto';
 
 @Component({
-  selector: 'app-cliente-form',
-  templateUrl: './cliente-form.component.html'
+  selector: 'app-produto-form',
+  templateUrl: './produto-form.component.html',
+  styleUrls: ['./produto-form.component.scss']
 })
-export class ClienteFormComponent implements OnInit {
-
-  objeto: Cliente;
+export class ProdutoFormComponent implements OnInit {
+  objeto: Produto;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private clienteService: ClienteService,
+              private produtoService: ProdutoService,
               private router: Router,
               private messageService: MessageService) {
   }
@@ -21,7 +21,7 @@ export class ClienteFormComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParamMap.subscribe(params => {
       if (params.has('id')) {
-        this.clienteService.findOne(parseInt(params.get('id'))).subscribe(res => {
+        this.produtoService.findOne(parseInt(params.get('id'))).subscribe(res => {
           this.objeto = res;
         });
       } else {
@@ -31,7 +31,7 @@ export class ClienteFormComponent implements OnInit {
   }
 
   salvar(): void {
-    this.clienteService.save(this.objeto).subscribe(res => {
+    this.produtoService.save(this.objeto).subscribe(res => {
       this.objeto = res;
 
       this.messageService.add({
@@ -39,7 +39,7 @@ export class ClienteFormComponent implements OnInit {
         summary: 'Salvo com sucesso!'
       });
 
-      this.router.navigateByUrl('cliente');
+      this.router.navigateByUrl('produto');
     }, erro => {
       this.messageService.add({
         severity: 'error',
@@ -49,9 +49,8 @@ export class ClienteFormComponent implements OnInit {
   }
 
   private resetaForm(): void {
-    this.objeto = new Cliente();
-    this.objeto.nome = '';
-    this.objeto.cpf = '';
-    this.objeto.telefone = '';
+    this.objeto = new Produto();
+    this.objeto.descricao = '';
   }
+
 }

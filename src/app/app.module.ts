@@ -18,6 +18,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {SidebarModule} from 'primeng/primeng';
 import {SidebarService} from './service/sidebar.service';
+import { ProdutoComponent } from './produto/produto.component';
+import { ProdutoFormComponent } from './produto/produto-form/produto-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import {SidebarService} from './service/sidebar.service';
     HomeComponent,
     ClienteComponent,
     ClienteFormComponent,
+    ProdutoComponent,
+    ProdutoFormComponent,
   ],
   imports: [
     BrowserModule,
