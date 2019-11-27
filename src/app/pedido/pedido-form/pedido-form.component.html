@@ -1,0 +1,31 @@
+<p-card header="Produto">
+  <div class="text-right m-2">
+    <button (click)="salvar()"
+            class="ui-button-raised"
+            label="Salvar"
+            pButton
+            type="button"></button>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <span class="ui-float-label my-2">
+           <label for="dataEmissao">Data de Emissão</label>
+           <p-calendar [(ngModel)]="objeto.dataEmissao"
+                       dateFormat="dd/MM/yy"
+                       inputId="dataEmissao"></p-calendar>
+        </span>
+      </div>
+      <div class="col-12">
+        <p-dropdown [options]="clientes"
+                    [(ngModel)]="objeto.cliente"
+                    placeholder="Selecione um Cliente"
+                    optionLabel="nome"
+                    [showClear]="true"></p-dropdown>
+      </div>
+      <div class="col-12">
+        <h4>Total: {{ objeto.total  | currency: 'BRL'}}</h4>
+      </div>
+    </div>
+  </div>
+</p-card>

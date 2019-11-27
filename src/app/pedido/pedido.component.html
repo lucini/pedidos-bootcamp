@@ -1,0 +1,54 @@
+<p-card header="Lista de Pedido">
+  <div class="text-right m-2">
+    <button [routerLink]="['form']"
+            class="ui-button-raised"
+            label="Novo"
+            pButton
+            type="button"></button>
+  </div>
+  <p-table (onLazyLoad)="carregarLista()"
+           [columns]="cols"
+           [lazy]="true"
+           [loading]="loading"
+           [value]="lista">
+    <ng-template let-columns pTemplate="header">
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+        <th class="text-center">Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template let-columns="columns" let-rowData pTemplate="body">
+      <tr>
+        <td *ngFor="let col of columns">
+          <ng-container *ngIf="col.field !== 'cliente';else cliente">
+            {{rowData[col.field]}}
+          </ng-container>
+          <ng-template #cliente>
+            {{rowData[col.field]?.nome}}
+          </ng-template>
+
+        </td>
+        <td class="text-center">
+          <i [queryParams]="{id: rowData['id']}"
+             [routerLink]="['form']"
+             class="pi pi-pencil"
+             title="Editar"></i>
+          <i class="pi pi-trash ml-2"
+             (click)="excluir(rowData['id'])"
+             title="Excluir"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>Sem Registros.</tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      {{lista?.length}} pedidos.
+    </ng-template>
+  </p-table>
+</p-card>
+
+<p-confirmDialog header="Confirmation"
+                 icon="pi pi-exclamation-triangle"></p-confirmDialog>

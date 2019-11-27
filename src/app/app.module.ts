@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -16,10 +16,16 @@ import {ToastModule} from 'primeng/toast';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {SidebarModule} from 'primeng/primeng';
+import {CalendarModule, DropdownModule, SidebarModule} from 'primeng/primeng';
 import {SidebarService} from './service/sidebar.service';
 import { ProdutoComponent } from './produto/produto.component';
 import { ProdutoFormComponent } from './produto/produto-form/produto-form.component';
+import { PedidoComponent } from './pedido/pedido.component';
+import { PedidoFormComponent } from './pedido/pedido-form/pedido-form.component';
+import localePt from '@angular/common/locales/pt';
+import {registerLocaleData} from '@angular/common';
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
@@ -29,6 +35,8 @@ import { ProdutoFormComponent } from './produto/produto-form/produto-form.compon
     ClienteFormComponent,
     ProdutoComponent,
     ProdutoFormComponent,
+    PedidoComponent,
+    PedidoFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,11 +51,17 @@ import { ProdutoFormComponent } from './produto/produto-form/produto-form.compon
     BrowserAnimationsModule,
     ConfirmDialogModule,
     SidebarModule,
+    CalendarModule,
+    DropdownModule,
   ],
   providers: [
     MessageService,
     ConfirmationService,
-    SidebarService
+    SidebarService,
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt'
+    }
   ],
   bootstrap: [AppComponent]
 })
