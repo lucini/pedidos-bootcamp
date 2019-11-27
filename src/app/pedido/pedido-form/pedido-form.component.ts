@@ -17,7 +17,7 @@ import {ProdutoService} from '../../service/produto.service';
 })
 export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit {
   displayItem = false;
-  pedidoItemForm = new PedidoItem();
+  pedidoItemForm: PedidoItem = new PedidoItem();
 
   produtos: Produto[];
   clientes: Cliente[];
@@ -94,8 +94,15 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
 
 
   salvarItem() {
-    this.objeto.pedidoItemList.push(this.pedidoItemForm);
+    console.log(this.pedidoItemForm);
+    const pedidoItem = JSON.parse(JSON.stringify(this.pedidoItemForm));
+    this.objeto.pedidoItemList.push(pedidoItem);
     this.displayItem = false;
     this.pedidoItemForm = new PedidoItem();
+  }
+
+  openModalItem(): void {
+    this.pedidoItemForm = new PedidoItem();
+    this.displayItem = true;
   }
 }
