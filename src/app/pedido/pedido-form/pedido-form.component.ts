@@ -6,6 +6,9 @@ import {PedidoService} from '../../service/pedido.service';
 import {ClienteService} from '../../service/cliente.service';
 import {Cliente} from '../../model/cliente';
 import {FormComponent} from '../../component/form.component';
+import {PedidoItem} from '../../model/pedidoItem';
+import {Produto} from '../../model/produto';
+import {ProdutoService} from '../../service/produto.service';
 
 @Component({
   selector: 'app-pedido-form',
@@ -13,17 +16,21 @@ import {FormComponent} from '../../component/form.component';
   styleUrls: ['./pedido-form.component.scss']
 })
 export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit {
+  displayItem = false;
+  pedidoItemForm = new PedidoItem();
+
+  produtos: Produto[];
   clientes: Cliente[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private pedidoService: PedidoService,
               private clienteService: ClienteService,
+              private produtoService: ProdutoService,
               private router: Router,
               private messageService: MessageService) {
     super();
-    this.clienteService.findAll().subscribe(clientes => {
-      this.clientes = clientes;
-    });
+    this.clienteService.findAll().subscribe(clientes => this.clientes = clientes);
+    this.produtoService.findAll().subscribe(produtos => this.produtos = produtos);
   }
 
   ngOnInit(): void {
@@ -31,7 +38,6 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
       if (params.has('id')) {
         this.pedidoService.findOne(parseInt(params.get('id'))).subscribe(res => {
           this.objeto = res;
-          console.log(this.objeto.dataEmissao);
         });
       } else {
         this.resetaForm();
@@ -87,4 +93,9 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
   }
 
 
+  salvarItem() {
+    this.objeto.pedidoItemList.push(this.pedidoItemForm);
+    this.displayItem = false;
+    this.pedidoItemForm = new PedidoItem();
+  }
 }

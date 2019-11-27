@@ -1,4 +1,4 @@
-<p-card header="Produto">
+<p-card header="Pedido">
   <div class="text-right m-2">
     <button (click)="salvar()"
             class="ui-button-raised"
@@ -17,11 +17,11 @@
         </span>
       </div>
       <div class="col-12">
-        <p-dropdown [options]="clientes"
-                    [(ngModel)]="objeto.cliente"
-                    placeholder="Selecione um Cliente"
+        <p-dropdown [(ngModel)]="objeto.cliente"
+                    [options]="clientes"
+                    [showClear]="true"
                     optionLabel="nome"
-                    [showClear]="true"></p-dropdown>
+                    placeholder="Selecione um Cliente"></p-dropdown>
       </div>
       <div class="col-12">
         <h4>Total: {{ objeto.total  | currency: 'BRL'}}</h4>
@@ -29,3 +29,99 @@
     </div>
   </div>
 </p-card>
+<p-card header="Itens">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-right m-2">
+        <button (click)="displayItem = true"
+                class="ui-button-raised"
+                label="Adicionar"
+                pButton
+                type="button"></button>
+      </div>
+    </div>
+    <div class="col-12">
+      <p-table [value]="objeto.pedidoItemList">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Valor Desconto</th>
+            <th>Valor Total</th>
+          </tr>
+        </ng-template>
+        <ng-template let-item pTemplate="body">
+          <tr>
+            <td>{{item?.produto?.descricao}}</td>
+            <td>{{item?.quantidade}}</td>
+            <td>{{item?.valorUnitario | currency: 'BRL'}}</td>
+            <td>{{item?.valorDesconto | currency: 'BRL'}}</td>
+            <td>{{item?.valorTotal | currency: 'BRL'}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr class="text-center">
+            <td colspan="5">Não há produtos adicionados ao pedido.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</p-card>
+
+<p-dialog [(visible)]="displayItem"
+          [style]="{ width: '500px'}"
+          header="Item">
+  <div class="row">
+    <div class="col-12">
+      <p-dropdown [(ngModel)]="pedidoItemForm.produto"
+                  [options]="produtos"
+                  [showClear]="true"
+                  appendTo="body"
+                  optionLabel="descricao"
+                  placeholder="Selecione um Produto"></p-dropdown>
+    </div>
+    <div class="col-12">
+        <span class="ui-float-label my-2">
+            <input [(ngModel)]="pedidoItemForm.quantidade"
+                   id="quantidade"
+                   pInputText
+                   size="30"
+                   type="number">
+            <label for="quantidade">Quantidade</label>
+        </span>
+    </div>
+    <div class="col-12">
+        <span class="ui-float-label my-2">
+            <input [(ngModel)]="pedidoItemForm.valorUnitario"
+                   id="valorUnitario"
+                   pInputText
+                   size="30"
+                   type="text">
+            <label for="valorUnitario">Valor Unitário</label>
+        </span>
+    </div>
+    <div class="col-12">
+      <span class="ui-float-label my-2">
+        <input [(ngModel)]="pedidoItemForm.desconto"
+               id="desconto"
+               pInputText
+               size="30"
+               type="text">
+        <label for="desconto">Desconto(%)</label>
+      </span>
+    </div>
+  </div>
+  <p-footer>
+    <button (click)="displayItem = false"
+            class="ui-button-secondary mr-2"
+            label="Fechar"
+            pButton
+            type="button"></button>
+    <button (click)="salvarItem()" class="ui-button-raised"
+            label="Salvar"
+            pButton
+            type="button"></button>
+  </p-footer>
+</p-dialog>
