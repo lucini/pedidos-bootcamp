@@ -6,9 +6,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {dateStringToDateJs} from '../helper/date.helper';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PedidoService extends BaseService<Pedido> {
 
   constructor(protected http: HttpClient) {

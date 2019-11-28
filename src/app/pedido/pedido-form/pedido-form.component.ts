@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MessageService} from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
 import {Pedido} from '../../model/pedido';
 import {PedidoService} from '../../service/pedido.service';
 import {ClienteService} from '../../service/cliente.service';
 import {Cliente} from '../../model/cliente';
 import {FormComponent} from '../../component/form.component';
 import {PedidoItem} from '../../model/pedidoItem';
-import {Produto} from '../../model/produto';
-import {ProdutoService} from '../../service/produto.service';
 
 @Component({
   selector: 'app-pedido-form',
@@ -17,20 +15,29 @@ import {ProdutoService} from '../../service/produto.service';
 })
 export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit {
   displayItem = false;
-  pedidoItemForm: PedidoItem = new PedidoItem();
-
-  produtos: Produto[];
   clientes: Cliente[];
+  pedidoItem: PedidoItem;
+  rowIndex: number;
+  menuItens: MenuItem[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private pedidoService: PedidoService,
               private clienteService: ClienteService,
-              private produtoService: ProdutoService,
               private router: Router,
               private messageService: MessageService) {
     super();
     this.clienteService.findAll().subscribe(clientes => this.clientes = clientes);
-    this.produtoService.findAll().subscribe(produtos => this.produtos = produtos);
+    this.menuItens = [
+      {
+        label: 'Limpar',
+        icon: 'pi pi-trash',
+        command: () => this.limparItens(),
+      }
+    ];
+  }
+
+  private limparItens(): void {
+    this.objeto.pedidoItemList = [];
   }
 
   ngOnInit(): void {
@@ -93,16 +100,26 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
   }
 
 
-  salvarItem() {
-    console.log(this.pedidoItemForm);
-    const pedidoItem = JSON.parse(JSON.stringify(this.pedidoItemForm));
-    this.objeto.pedidoItemList.push(pedidoItem);
-    this.displayItem = false;
-    this.pedidoItemForm = new PedidoItem();
+  novoItem(): void {
+    this.displayItem = true;
+    this.rowIndex = -1;
   }
 
-  openModalItem(): void {
-    this.pedidoItemForm = new PedidoItem();
+  editar(rowIndex: number): void {
+    this.rowIndex = rowIndex;
+    this.pedidoItem = JSON.parse(JSON.stringify(this.objeto.pedidoItemList[rowIndex]));
     this.displayItem = true;
+  }
+
+  adicionarItem(pedidoItem: PedidoItem) {
+    if (this.rowIndex >= 0) {
+      this.objeto.pedidoItemList[this.rowIndex] = JSON.parse(JSON.stringify(pedidoItem));
+    } else {
+      this.objeto.pedidoItemList.push(pedidoItem);
+    }
+  }
+
+  excluir(index: number): void {
+    this.objeto.pedidoItemList.splice(index, 1);
   }
 }

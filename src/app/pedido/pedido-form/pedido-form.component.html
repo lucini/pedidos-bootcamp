@@ -7,7 +7,7 @@
             type="button"></button>
   </div>
   <div class="container">
-    <div class="row">
+    <div class="ui-g ui-fluid">
       <div class="col-12">
         <span class="ui-float-label my-2">
            <label for="dataEmissao">Data de Emissão</label>
@@ -33,11 +33,10 @@
   <div class="row">
     <div class="col-12">
       <div class="text-right m-2">
-        <button (click)="openModalItem()"
-                class="ui-button-raised"
-                label="Adicionar"
-                pButton
-                type="button"></button>
+        <p-splitButton label="Adicionar"
+                       icon="pi pi-plus"
+                       [model]="menuItens"
+                       (onClick)="novoItem()"></p-splitButton>
       </div>
     </div>
     <div class="col-12">
@@ -46,23 +45,31 @@
           <tr>
             <th>Produto</th>
             <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Valor Desconto</th>
-            <th>Valor Total</th>
+            <th class="text-right">Valor Unitário</th>
+            <th class="text-right">Valor Desconto</th>
+            <th class="text-right">Valor Total</th>
+            <th class="text-center">Ações</th>
           </tr>
         </ng-template>
-        <ng-template let-item pTemplate="body">
+        <ng-template let-item let-rowIndex="rowIndex" pTemplate="body">
           <tr>
             <td>{{item?.produto?.descricao}}</td>
             <td>{{item?.quantidade}}</td>
-            <td>{{item?.valorUnitario | currency: 'BRL'}}</td>
-            <td>{{item?.valorDesconto | currency: 'BRL'}}</td>
-            <td>{{item?.valorTotal | currency: 'BRL'}}</td>
+            <td class="text-right">{{item?.valorUnitario | currency: 'BRL'}}</td>
+            <td class="text-right">{{item?.valorDesconto | currency: 'BRL'}}</td>
+            <td class="text-right">{{item?.valorTotal | currency: 'BRL'}}</td>
+            <td class="text-center">
+              <i (click)="editar(rowIndex)"
+                 class="pi pi-pencil"
+                 title="Editar"></i>
+              <i (click)="excluir(rowIndex)" class="pi pi-trash ml-2"
+                 title="Excluir"></i>
+            </td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr class="text-center">
-            <td colspan="5">Não há produtos adicionados ao pedido.</td>
+            <td colspan="6">Não há produtos adicionados ao pedido.</td>
           </tr>
         </ng-template>
       </p-table>
@@ -70,58 +77,7 @@
   </div>
 </p-card>
 
-<p-dialog [(visible)]="displayItem"
-          [style]="{ width: '500px'}"
-          header="Item">
-  <div class="row">
-    <div class="col-12">
-      <p-dropdown [(ngModel)]="pedidoItemForm.produto"
-                  [options]="produtos"
-                  [showClear]="true"
-                  appendTo="body"
-                  optionLabel="descricao"
-                  placeholder="Selecione um Produto"></p-dropdown>
-    </div>
-    <div class="col-12">
-        <span class="ui-float-label my-2">
-            <input [(ngModel)]="pedidoItemForm.quantidade"
-                   id="quantidade"
-                   pInputText
-                   size="30"
-                   type="number">
-            <label for="quantidade">Quantidade</label>
-        </span>
-    </div>
-    <div class="col-12">
-        <span class="ui-float-label my-2">
-            <input [(ngModel)]="pedidoItemForm.valorUnitario"
-                   id="valorUnitario"
-                   pInputText
-                   size="30"
-                   type="text">
-            <label for="valorUnitario">Valor Unitário</label>
-        </span>
-    </div>
-    <div class="col-12">
-      <span class="ui-float-label my-2">
-        <input [(ngModel)]="pedidoItemForm.desconto"
-               id="desconto"
-               pInputText
-               size="30"
-               type="text">
-        <label for="desconto">Desconto(%)</label>
-      </span>
-    </div>
-  </div>
-  <p-footer>
-    <button (click)="displayItem = false"
-            class="ui-button-secondary mr-2"
-            label="Fechar"
-            pButton
-            type="button"></button>
-    <button (click)="salvarItem()" class="ui-button-raised"
-            label="Salvar"
-            pButton
-            type="button"></button>
-  </p-footer>
-</p-dialog>
+<app-pedido-item (onClose)="displayItem = false"
+                 (onSalvar)="adicionarItem($event)"
+                 [displayItem]="displayItem"
+                 [objeto]="pedidoItem"></app-pedido-item>

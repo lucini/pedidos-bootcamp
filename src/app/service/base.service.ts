@@ -26,8 +26,12 @@ export abstract class BaseService<T> {
     return this.http.delete<void>(`${this.getUrl()}/${id}`);
   }
 
-  private getUrl(): string {
+  protected getUrl(): string {
     return `${environment.api_url}${this.endpoint}`;
+  }
+
+  complete(query: string): Observable<T[]> {
+    return this.http.get<T[]>(`${this.getUrl()}/complete?query=${query}`);
   }
 
 }
