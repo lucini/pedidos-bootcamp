@@ -16,7 +16,7 @@ import {ToastModule} from 'primeng/toast';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {AutoCompleteModule, CalendarModule, DialogModule, DropdownModule, MenuModule, SidebarModule} from 'primeng/primeng';
+import {AutoCompleteModule, CalendarModule, DialogModule, DropdownModule, MenuModule, SidebarModule, TooltipModule} from 'primeng/primeng';
 import {SidebarService} from './service/sidebar.service';
 import {ProdutoComponent} from './produto/produto.component';
 import {ProdutoFormComponent} from './produto/produto-form/produto-form.component';
@@ -56,6 +56,7 @@ registerLocaleData(localePt, 'pt');
     AutoCompleteModule,
     PedidoModule,
     MenuModule,
+    TooltipModule,
   ],
   providers: [
     MessageService,

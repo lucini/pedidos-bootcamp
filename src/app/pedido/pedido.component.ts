@@ -3,6 +3,7 @@ import {ListComponent} from '../component/list.component';
 import {Pedido} from '../model/pedido';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {PedidoService} from '../service/pedido.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pedido',
@@ -13,7 +14,8 @@ export class PedidoComponent extends ListComponent<Pedido> implements OnInit {
 
   constructor(private pedidoService: PedidoService,
               private messageService: MessageService,
-              private confirmationService: ConfirmationService) {
+              private confirmationService: ConfirmationService,
+              private titleService: Title) {
     super();
     this.cols = [
       {field: 'id', header: 'Código'},
@@ -21,6 +23,7 @@ export class PedidoComponent extends ListComponent<Pedido> implements OnInit {
       {field: 'dataEmissao', header: 'Data de Emissão'},
       {field: 'total', header: 'Total'},
     ];
+    this.titleService.setTitle('Lista de Pedidos');
   }
 
   ngOnInit() {

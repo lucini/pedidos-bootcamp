@@ -3,6 +3,7 @@ import {Cliente} from '../model/cliente';
 import {ClienteService} from '../service/cliente.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ListComponent} from '../component/list.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cliente',
@@ -13,7 +14,8 @@ export class ClienteComponent extends ListComponent<Cliente> implements OnInit {
 
   constructor(private clienteService: ClienteService,
               private messageService: MessageService,
-              private confirmationService: ConfirmationService) {
+              private confirmationService: ConfirmationService,
+              private titleService: Title) {
     super();
     this.cols = [
       {field: 'id', header: 'Código'},
@@ -24,6 +26,7 @@ export class ClienteComponent extends ListComponent<Cliente> implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Lista de Clientes');
   }
 
   carregarLista(): void {

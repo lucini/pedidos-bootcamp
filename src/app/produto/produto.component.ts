@@ -3,6 +3,7 @@ import {ListComponent} from '../component/list.component';
 import {Produto} from '../model/produto';
 import {ProdutoService} from '../service/produto.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-produto',
@@ -13,7 +14,8 @@ export class ProdutoComponent extends ListComponent<Produto> implements OnInit {
 
   constructor(private produtoService: ProdutoService,
               private messageService: MessageService,
-              private confirmationService: ConfirmationService) {
+              private confirmationService: ConfirmationService,
+              private titleService: Title) {
     super();
     this.cols = [
       {field: 'id', header: 'Código'},
@@ -23,6 +25,7 @@ export class ProdutoComponent extends ListComponent<Produto> implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Lista de Produtos');
   }
 
   carregarLista(): void {
