@@ -2,3 +2,12 @@
 body {
   overflow: hidden;
 }
+
+.b-gradient {
+  color: white !important;
+  background: linear-gradient(to right, rgba(107,187,209,1) 0%, rgba(83,173,198,1) 59%, rgba(60,146,170,1) 100%);
+}
+
+.font2x {
+  font-size: 2em !important;
+}

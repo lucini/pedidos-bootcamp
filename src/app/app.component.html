@@ -1,9 +1,9 @@
 <p-toast></p-toast>
-<p-sidebar [style]="{width: '230px'}" [(visible)]="displaySidebar">
-  <p-menu [model]="menuList"></p-menu>
+<p-sidebar styleClass="b-gradient" [style]="{width: '230px'}" [(visible)]="displaySidebar">
+  <p-menu styleClass="b-gradient" [model]="menuList"></p-menu>
 </p-sidebar>
-<div class="m-2">
-  <i class="pi pi-align-justify" (click)="abrirFecharMenu()"></i>
+<div class="menubar b-gradient">
+  <i class="pi pi-align-justify font2x" (click)="abrirFecharMenu()"></i>
 </div>
 <div class="ui-g">
   <router-outlet></router-outlet>
