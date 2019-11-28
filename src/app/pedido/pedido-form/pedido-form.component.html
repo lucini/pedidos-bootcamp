@@ -44,7 +44,7 @@
         <ng-template pTemplate="header">
           <tr>
             <th>Produto</th>
-            <th>Quantidade</th>
+            <th class="text-center">Quantidade</th>
             <th class="text-right">Valor Unitário</th>
             <th class="text-right">Valor Desconto</th>
             <th class="text-right">Valor Total</th>
@@ -54,7 +54,7 @@
         <ng-template let-item let-rowIndex="rowIndex" pTemplate="body">
           <tr>
             <td>{{item?.produto?.descricao}}</td>
-            <td>{{item?.quantidade}}</td>
+            <td class="text-center">{{item?.quantidade}}</td>
             <td class="text-right">{{item?.valorUnitario | currency: 'BRL'}}</td>
             <td class="text-right">{{item?.valorDesconto | currency: 'BRL'}}</td>
             <td class="text-right">{{item?.valorTotal | currency: 'BRL'}}</td>

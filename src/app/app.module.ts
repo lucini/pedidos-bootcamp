@@ -23,6 +23,7 @@ import {ProdutoFormComponent} from './produto/produto-form/produto-form.componen
 import localePt from '@angular/common/locales/pt';
 import {registerLocaleData} from '@angular/common';
 import {PedidoModule} from './pedido/pedido.module';
+import { MarcaTextoDirective } from './directive/marca-texto.directive';
 
 registerLocaleData(localePt, 'pt');
 
@@ -34,6 +35,7 @@ registerLocaleData(localePt, 'pt');
     ClienteFormComponent,
     ProdutoComponent,
     ProdutoFormComponent,
+    MarcaTextoDirective,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,9 @@ registerLocaleData(localePt, 'pt');
       provide: LOCALE_ID,
       useValue: 'pt'
     }
+  ],
+  exports: [
+    MarcaTextoDirective
   ],
   bootstrap: [AppComponent]
 })

@@ -101,8 +101,9 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
 
 
   novoItem(): void {
-    this.displayItem = true;
     this.rowIndex = -1;
+    this.pedidoItem = new PedidoItem();
+    this.displayItem = true;
   }
 
   editar(rowIndex: number): void {

@@ -9,7 +9,7 @@ import {CardModule} from 'primeng/card';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CalendarModule} from 'primeng/calendar';
 import {DropdownModule} from 'primeng/dropdown';
-import {AutoCompleteModule, ConfirmationService, DialogModule, SplitButtonModule} from 'primeng/primeng';
+import {AutoCompleteModule, ConfirmationService, DialogModule, InputTextModule, SplitButtonModule} from 'primeng/primeng';
 import {FormsModule} from '@angular/forms';
 import {PedidoService} from '../service/pedido.service';
 import {PedidoRoutingModule} from './pedido-routing.module';
@@ -34,6 +34,7 @@ import {PedidoRoutingModule} from './pedido-routing.module';
     AutoCompleteModule,
     FormsModule,
     DialogModule,
+    InputTextModule,
   ],
   exports: [
     PedidoComponent,
