@@ -3,29 +3,27 @@
     <button (click)="salvar()"
             class="ui-button-raised"
             label="Salvar"
+            icon="pi pi-save"
             pButton
             type="button"></button>
   </div>
-  <div class="container">
-    <div class="ui-g ui-fluid">
-      <div class="col-12">
-        <span class="ui-float-label my-2">
-           <label for="dataEmissao">Data de Emissão</label>
-           <p-calendar [(ngModel)]="objeto.dataEmissao"
-                       dateFormat="dd/MM/yy"
-                       inputId="dataEmissao"></p-calendar>
-        </span>
-      </div>
-      <div class="col-12">
-        <p-dropdown [(ngModel)]="objeto.cliente"
-                    [options]="clientes"
-                    [showClear]="true"
-                    optionLabel="nome"
-                    placeholder="Selecione um Cliente"></p-dropdown>
-      </div>
-      <div class="col-12 text-center">
-        <h4>Total: {{ objeto.total  | currency: 'BRL'}}</h4>
-      </div>
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-6">
+      <label for="dataEmissao">Data de Emissão</label>
+      <p-calendar [(ngModel)]="objeto.dataEmissao"
+                  dateFormat="dd/MM/yy"
+                  inputId="dataEmissao"></p-calendar>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+      <label for="cliente">Cliente</label>
+      <p-dropdown [(ngModel)]="objeto.cliente"
+                  [options]="clientes"
+                  [showClear]="true"
+                  inputId="cliente"
+                  optionLabel="nome"></p-dropdown>
+    </div>
+    <div class="ui-g-12 text-center">
+      <h4>Total: {{ objeto.total  | currency: 'BRL'}}</h4>
     </div>
   </div>
 </p-card>
@@ -33,10 +31,10 @@
   <div class="row">
     <div class="col-12">
       <div class="text-right m-2">
-        <p-splitButton label="Adicionar"
-                       icon="pi pi-plus"
+        <p-splitButton (onClick)="novoItem()"
                        [model]="menuItens"
-                       (onClick)="novoItem()"></p-splitButton>
+                       icon="pi pi-plus"
+                       label="Adicionar"></p-splitButton>
       </div>
     </div>
     <div class="col-12">
