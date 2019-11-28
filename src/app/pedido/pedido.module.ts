@@ -12,6 +12,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {AutoCompleteModule, ConfirmationService, DialogModule, SplitButtonModule} from 'primeng/primeng';
 import {FormsModule} from '@angular/forms';
 import {PedidoService} from '../service/pedido.service';
+import {PedidoRoutingModule} from './pedido-routing.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {PedidoService} from '../service/pedido.service';
     PedidoItemComponent,
   ],
   imports: [
+    PedidoRoutingModule,
     CommonModule,
     RouterModule,
     TableModule,

@@ -31,12 +31,8 @@ const routes: Routes = [
   },
   {
     path: 'pedido',
-    component: PedidoComponent,
+    loadChildren: () => import('./pedido/pedido.module').then(m => m.PedidoModule)
   },
-  {
-    path: 'pedido/form',
-    component: PedidoFormComponent
-  }
 ];
 
 @NgModule({
