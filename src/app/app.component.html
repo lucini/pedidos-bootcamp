@@ -1,6 +1,10 @@
 <p-toast></p-toast>
-<p-sidebar [(visible)]="displaySidebar">
-  Contente
+<p-sidebar [style]="{width: '230px'}" [(visible)]="displaySidebar">
+  <p-menu [model]="menuList"></p-menu>
 </p-sidebar>
-<i class="pi pi-align-justify" (click)="abrirFecharMenu()"></i>
-<router-outlet></router-outlet>
+<div class="m-2">
+  <i class="pi pi-align-justify" (click)="abrirFecharMenu()"></i>
+</div>
+<div class="ui-g">
+  <router-outlet></router-outlet>
+</div>
