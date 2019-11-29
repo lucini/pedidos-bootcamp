@@ -4,7 +4,7 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ClienteComponent} from './cliente/cliente.component';
 import {TableModule} from 'primeng/table';
 import {CardModule} from 'primeng/card';
@@ -24,6 +24,7 @@ import {PedidoModule} from './pedido/pedido.module';
 import { MarcaTextoDirective } from './directive/marca-texto.directive';
 import localePt from '@angular/common/locales/pt';
 import {registerLocaleData} from '@angular/common';
+import {HttpRequestInterceptor} from './config/http-request.interceptor';
 
 registerLocaleData(localePt, 'pt');
 
@@ -65,6 +66,11 @@ registerLocaleData(localePt, 'pt');
     {
       provide: LOCALE_ID,
       useValue: 'pt'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestInterceptor,
+      multi: true
     }
   ],
   exports: [
