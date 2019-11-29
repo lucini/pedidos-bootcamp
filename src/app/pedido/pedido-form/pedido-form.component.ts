@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MenuItem, MessageService} from 'primeng/api';
 import {Pedido} from '../../model/pedido';
@@ -7,6 +7,7 @@ import {ClienteService} from '../../service/cliente.service';
 import {Cliente} from '../../model/cliente';
 import {FormComponent} from '../../component/form.component';
 import {PedidoItem} from '../../model/pedidoItem';
+import {PedidoItemComponent} from '../pedido-item/pedido-item.component';
 
 @Component({
   selector: 'app-pedido-form',
@@ -19,6 +20,8 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
   pedidoItem: PedidoItem;
   rowIndex: number;
   menuItens: MenuItem[];
+  @ViewChild('pedidoItemComponent', {static: false}) pedidoItemcomponent: PedidoItemComponent;
+  @ViewChild('mensagemVazia', {static: false}) mensagemVazia: ElementRef<HTMLTableDataCellElement>;
 
   constructor(private activatedRoute: ActivatedRoute,
               private pedidoService: PedidoService,
@@ -70,6 +73,11 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
         this.resetaForm();
       }
     });
+    setTimeout(() => this.mensagemVazia
+      .nativeElement
+      .innerText = 'Não há produtos e essa mensagem foi adicionado pelo VIEWCHILD',
+      2000
+  );
   }
 
   preSave(): void {
@@ -123,12 +131,14 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
     this.rowIndex = -1;
     this.pedidoItem = new PedidoItem();
     this.displayItem = true;
+    this.pedidoItemcomponent.titulo = 'Novo Item';
   }
 
   editar(rowIndex: number): void {
     this.rowIndex = rowIndex;
     this.pedidoItem = JSON.parse(JSON.stringify(this.objeto.pedidoItemList[rowIndex]));
     this.displayItem = true;
+    this.pedidoItemcomponent.titulo = 'Editar Item';
   }
 
   adicionarItem(pedidoItem: PedidoItem) {

@@ -11,6 +11,7 @@ import {ProdutoService} from '../../service/produto.service';
 })
 export class PedidoItemComponent extends FormComponent<PedidoItem> implements OnInit {
 
+  titulo = 'Item';
   produtos: Produto[];
   @Input() displayItem = false;
   @Output() onClose = new EventEmitter<void>();

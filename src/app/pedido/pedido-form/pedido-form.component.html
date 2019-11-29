@@ -80,7 +80,7 @@
         </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr class="text-center">
-            <td colspan="6">Não há produtos adicionados ao pedido.</td>
+            <td colspan="6" #mensagemVazia>Não há produtos adicionados ao pedido.</td>
           </tr>
         </ng-template>
       </p-table>
@@ -88,7 +88,7 @@
   </div>
 </p-card>
 
-<app-pedido-item (onClose)="displayItem = false"
+<app-pedido-item #pedidoItemComponent (onClose)="displayItem = false"
                  (onSalvar)="adicionarItem($event)"
                  [displayItem]="displayItem"
                  [objeto]="pedidoItem"></app-pedido-item>

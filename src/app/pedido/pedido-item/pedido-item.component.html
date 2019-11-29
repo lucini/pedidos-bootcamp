@@ -1,7 +1,7 @@
 <p-dialog (onHide)="this.onClose.emit()"
           [(visible)]="displayItem"
           [style]="{ width: '500px'}"
-          header="Item">
+          [header]="titulo">
   <div class="row">
     <div class="col-12">
       <p-autoComplete (completeMethod)="search($event)"
