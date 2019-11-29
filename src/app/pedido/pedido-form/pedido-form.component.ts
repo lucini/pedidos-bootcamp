@@ -20,7 +20,7 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
   pedidoItem: PedidoItem;
   rowIndex: number;
   menuItens: MenuItem[];
-  @ViewChild('pedidoItemComponent', {static: false}) pedidoItemcomponent: PedidoItemComponent;
+  @ViewChild(PedidoItemComponent, {static: false}) pedidoItemcomponent: PedidoItemComponent;
   @ViewChild('mensagemVazia', {static: false}) mensagemVazia: ElementRef<HTMLTableDataCellElement>;
 
   constructor(private activatedRoute: ActivatedRoute,
