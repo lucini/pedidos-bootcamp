@@ -36,8 +36,28 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
     ];
   }
 
-  private limparItens(): void {
-    this.objeto.pedidoItemList = [];
+  get totalQuantidade() {
+    return this.objeto.pedidoItemList
+      .map(value => value.quantidade)
+      .reduce((acc, current) => acc + current, 0);
+  }
+
+  get totalValorUnitario() {
+    return this.objeto.pedidoItemList
+      .map(value => value.valorUnitario)
+      .reduce((acc, current) => acc + current, 0);
+  }
+
+  get totalValorDesconto() {
+    return this.objeto.pedidoItemList
+      .map(value => value.valorDesconto)
+      .reduce((acc, current) => acc + current, 0);
+  }
+
+  get total() {
+    return this.objeto.pedidoItemList
+      .map(value => value.valorTotal)
+      .reduce((acc, current) => acc + current, 0);
   }
 
   ngOnInit(): void {
@@ -99,7 +119,6 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
     this.objeto.pedidoItemList = [];
   }
 
-
   novoItem(): void {
     this.rowIndex = -1;
     this.pedidoItem = new PedidoItem();
@@ -116,11 +135,25 @@ export class PedidoFormComponent extends FormComponent<Pedido> implements OnInit
     if (this.rowIndex >= 0) {
       this.objeto.pedidoItemList[this.rowIndex] = JSON.parse(JSON.stringify(pedidoItem));
     } else {
+      this.calcular(pedidoItem);
       this.objeto.pedidoItemList.push(pedidoItem);
+      this.objeto.total = this.objeto.pedidoItemList
+        .map(val => val.valorTotal)
+        .reduce((acumulador, corrente) => acumulador + corrente, 0);
     }
   }
 
   excluir(index: number): void {
     this.objeto.pedidoItemList.splice(index, 1);
+  }
+
+  private calcular(pedidoItem: PedidoItem) {
+    const total = pedidoItem.quantidade * pedidoItem.valorUnitario;
+    pedidoItem.valorDesconto = (total * pedidoItem.desconto) / 100;
+    pedidoItem.valorTotal = total - pedidoItem.valorDesconto;
+  }
+
+  private limparItens(): void {
+    this.objeto.pedidoItemList = [];
   }
 }

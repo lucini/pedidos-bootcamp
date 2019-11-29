@@ -20,10 +20,10 @@ import {AutoCompleteModule, CalendarModule, DialogModule, DropdownModule, MenuMo
 import {SidebarService} from './service/sidebar.service';
 import {ProdutoComponent} from './produto/produto.component';
 import {ProdutoFormComponent} from './produto/produto-form/produto-form.component';
-import localePt from '@angular/common/locales/pt';
-import {registerLocaleData} from '@angular/common';
 import {PedidoModule} from './pedido/pedido.module';
 import { MarcaTextoDirective } from './directive/marca-texto.directive';
+import localePt from '@angular/common/locales/pt';
+import {registerLocaleData} from '@angular/common';
 
 registerLocaleData(localePt, 'pt');
 

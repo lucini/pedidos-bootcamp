@@ -27,16 +27,19 @@
     </div>
   </div>
 </p-card>
-<p-card header="Itens">
-  <div class="row">
-    <div class="col-12">
-      <div class="text-right m-2">
+<p-card>
+  <p-header>
+    <div class="row">
+      <div class="col-6 ui-card-title">Itens</div>
+      <div class="col-6 text-right">
         <p-splitButton (onClick)="novoItem()"
                        [model]="menuItens"
                        icon="pi pi-plus"
                        label="Adicionar"></p-splitButton>
       </div>
     </div>
+  </p-header>
+  <div class="row">
     <div class="col-12">
       <p-table [value]="objeto.pedidoItemList">
         <ng-template pTemplate="header">
@@ -63,6 +66,16 @@
               <i (click)="excluir(rowIndex)" class="pi pi-trash ml-2"
                  title="Excluir"></i>
             </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr>
+            <td>Total:</td>
+            <td class="text-center">{{ totalQuantidade }}</td>
+            <td class="text-right">{{ totalValorUnitario | currency: 'BRL' }}</td>
+            <td class="text-right">{{ totalValorDesconto | currency: 'BRL' }}</td>
+            <td class="text-right">{{ total | currency: 'BRL' }}</td>
+            <td class="text-right"></td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
